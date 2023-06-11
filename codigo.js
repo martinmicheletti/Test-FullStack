@@ -191,4 +191,6 @@ module.exports = {
   addTransfer,
   payTransfer,
   getTransfers,
+  getTransferenciasUsuario,
+  abortOtherLicenseTransfers,
 };

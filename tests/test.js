@@ -7,6 +7,8 @@ const {
   addTransfer,
   payTransfer,
   getTransfers,
+  getTransferenciasUsuario,
+  abortOtherLicenseTransfers,
 } = require("../codigo");
 
 describe("Test for valid input data fopr transfers", function () {
@@ -33,6 +35,15 @@ describe("Test for valid input data fopr transfers", function () {
     expect(validateLicenceFormat("999999")).toBe(false);
   });
 });
+describe("Test get transfers by email", function () {
+  test("Test get transfers by email ('usuario1@autored.cl') (valid)", () => {
+    expect(getTransferenciasUsuario("usuario1@autored.cl").length).toEqual(2);
+  });
+  test("Test get transfers by inexisting email ('test@gmail.com')", () => {
+    expect(getTransferenciasUsuario("test@gmail.com").length).toEqual(0);
+  });
+});
+
 describe("Test adding transfer", function () {
   test("Test adding a transfer", () => {
     expect(
@@ -77,6 +88,19 @@ describe("Test adding transfer", function () {
       })
     ).toThrow(Error);
   });
+  test("Testing adding an existing transfer, but with others in status 'ABORTADA' o FINALIZADA", () => {
+    expect(
+      addTransfer({
+        licensePlate: "LFTS35",
+        email: "usuario1@autored.cl",
+      })
+    ).toEqual({
+      id: getNewId() - 1,
+      licensePlate: "LFTS35",
+      email: "usuario1@autored.cl",
+      status: "CREADA",
+    });
+  });
   test("Testing adding an existing transfer", () => {
     expect(() =>
       addTransfer({
@@ -97,6 +121,9 @@ describe("Test pay a transfer", function () {
   });
   test("Test paying a transfer (invalid)", () => {
     expect(() => payTransfer("usuario1@autored.cl", "LFTS3444")).toThrow(Error);
+  });
+  test("Test aborting all transfers without payments", () => {
+    expect(() => abortOtherLicenseTransfers("BDLS99")).toThrow(Error);
   });
   test("Test aborting all other after paying one license", () => {
     const payed = payTransfer("usuario1@autored.cl", "LFTS34");
