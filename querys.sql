@@ -69,4 +69,4 @@ WHERE P.ID_CLIENTE = @specificID;
 -- consulto los informes comprados del cliente juan_daniel@gmail.com
 SELECT *
 FROM INFORMES
-WHERE ID IN (SELECT ID_INFORME AS 'ID' FROM temp_ids);
+WHERE ID_INFORME IN (SELECT ID_INFORME AS 'ID' FROM temp_ids);
