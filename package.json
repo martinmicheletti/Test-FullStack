@@ -1,0 +1,23 @@
+{
+  "name": "test-fullstack",
+  "version": "1.0.0",
+  "description": "Por medio de este test se evaluarán algunos de tus conocimientos que nos interesan como desarrollador.",
+  "main": "codigo.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/martinmicheletti/Test-FullStack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martinmicheletti/Test-FullStack/issues"
+  },
+  "homepage": "https://github.com/martinmicheletti/Test-FullStack#readme",
+  "devDependencies": {
+    "jest": "^29.5.0"
+  }
+}

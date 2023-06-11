@@ -71,7 +71,7 @@ const validateLicenceFormat = (licencePlate) => licenseRegex.test(licencePlate);
 
 const getNewId = () => {
   const ids = transfers?.map((x) => x.id);
-  const sorted = ids?.sort((a, b) => a - b);
+  const sorted = ids?.sort((a, b) => b - a);
   return sorted[0] + 1;
 };
 
@@ -92,15 +92,19 @@ const filterTransfersBy = (email, licensePlate) =>
 
 const isAnyTransfer = (email, licensePlate) => {
   const existingTransfers = filterTransfersBy(email, licensePlate);
+  if (!existingTransfers || !existingTransfers.length) return false;
   const endedTransfers = existingTransfers?.find(
     (x) => x.status === "FINALIZADA" || x.status === "ABORTADA"
   );
-
-  return !existingTransfers ? false : endedTransfers ? true : false;
+  if (endedTransfers) return false;
+  return true;
 };
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const validateEmail = (email) => emailRegex.test(email);
+
+const getTransfers = (licensePlate) =>
+  transfers?.filter((x) => x.licensePlate === licensePlate);
 
 const abortOtherLicenseTransfers = (licensePlate) => {
   const licenseTransfers = transfers?.filter(
@@ -124,7 +128,14 @@ const payTransfer = (email, licensePlate) => {
     throw new Error("No existen transferencias para los datos indicados");
 
   // ver si muta
-  existingTransfer.status == statuses?.find((x) => x.id === 2).name;
+  //   for (let index = 0; index < transfers.length; index++) {
+  //     const transfer = transfers[index];
+  //     if (transfer.id == existingTransfer.id) {
+  //       transfer.status = statuses?.find((x) => x.id === 2).name;
+  //       break;
+  //     }
+  //   }
+  existingTransfer.status = statuses?.find((x) => x.id === 2).name;
 
   /*
     - Si hay múltiples transferencias con misma patente 
@@ -144,7 +155,7 @@ const addTransfer = (payload) => {
     throw new Error("La patente debe tener un formato correcto");
 
   // si de todas las transferencias, para una patente
-  // alguna esta  'PAGADA', no se permite crear mas
+  // alguna esta 'PAGADA', no se permite crear mas
   if (isAnyTransferPayed(payload?.licensePlate))
     throw new Error("No se aceptan mas transferencias para la patente");
 
@@ -169,4 +180,15 @@ const addTransfer = (payload) => {
   };
   transfers.push(transfer);
   return transfer;
+};
+
+module.exports = {
+  statuses,
+  transfers,
+  getNewId,
+  validateEmail,
+  validateLicenceFormat,
+  addTransfer,
+  payTransfer,
+  getTransfers,
 };
