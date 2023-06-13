@@ -1,14 +1,14 @@
 const {
   transfers,
   InformesService,
-  Transfer,
+  transferBuilder,
   FORMAT_VALIDATORS,
 } = require("../codigo");
 
 describe("Test for valid input data fopr transfers", function () {
-  // Suite implementation goes here...
   test("generates new id", () => {
-    expect(Transfer.getNewId()).toBe(6);
+    // starting
+    expect(transferBuilder.getNewId()).toBe(6);
   });
   test("test valid email input: 'test@gmail.com'", () => {
     expect(FORMAT_VALIDATORS.validateEmail("test@gmail.com")).toBe(true);
@@ -93,7 +93,7 @@ describe("Test adding transfer", function () {
         email: "usuario1@autored.cl",
       })
     ).toEqual({
-      id: Transfer.getNewId() - 1,
+      id: transferBuilder.getNewId() - 1,
       licensePlate: "LFTS35",
       email: "usuario1@autored.cl",
       status: "CREADA",
@@ -125,9 +125,11 @@ describe("Test pay a transfer", function () {
     ).toThrow(Error);
   });
   test("Test aborting all transfers without payments", () => {
-    expect(() => InformesService.abortOtherLicenseTransfers("BDLS99")).toThrow(
-      Error
-    );
+    expect(() =>
+      InformesService.getInformesRepository().abortOtherLicenseTransfers(
+        "BDLS99"
+      )
+    ).toThrow(Error);
   });
   test("Test aborting all other after paying one license", () => {
     const payed = InformesService.payTransfer("usuario1@autored.cl", "LFTS34");

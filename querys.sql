@@ -1,31 +1,6 @@
 -- Escribe tus querys acá
 
--- CLIENTE
----correo
-
--- VEHICULO
----patente
-
--- HISTORIAL_MOTIVO
-
--- MOTIVO
-
--- PAGO
-
--- PASARELA_PAGO
-
--- INFORME
----fechaEmision
----precioVenta
-
--- HISTORIAL_ESTADO
-
--- ESTADO
-
--- 
-
--- QUERYS
--- - Se requiere el correo de todos los clientes 
+-- Se requiere el correo de todos los clientes 
 -- que hayan comprado más de un informe 
 -- a la vez mediante la pasarela de pago 'transbank'.
 
@@ -35,21 +10,21 @@ FROM PAGOS P
 JOIN INFORMES I ON P.ID_INFORME = I.ID_INFORME
 JOIN INFORMES_X_CLIENTE IXC ON IXC.ID_INFORME = I.ID_INFORME
 JOIN CLIENTES C ON IXC.ID_CLIENTE = C.ID_CLIENTE
+-- mejor por id
 WHERE PP.NOMBRE LIKE 'transbank' 
 GROUP BY C.CORREO
 HAVING COUNT(*) >= 2;
 --
-SELECT C.CORREO 
-FROM PAGOS P
-JOIN INFORMES I ON P.ID_INFORME = I.ID
-JOIN CLIENTES C ON P.I.ID_CLIENTE = C.ID
-JOIN PASARELA_PAGO PP ON P.ID_PASARELA_PAGO = PP.ID
-WHERE PP.NOMBRE LIKE 'transbank' 
+-- SELECT C.CORREO 
+-- FROM PAGOS P
+-- JOIN INFORMES I ON P.ID_INFORME = I.ID
+-- JOIN CLIENTES C ON P.I.ID_CLIENTE = C.ID
+-- JOIN PASARELA_PAGO PP ON P.ID_PASARELA_PAGO = PP.ID
+-- WHERE PP.NOMBRE LIKE 'transbank' 
 
-/*
-Devuelve todos los informes comprados que han sido entregados 
-al cliente juan_daniel@gmail.com **sin utilizar JOIN**
-*/
+
+--Devuelve todos los informes comprados que han sido entregados 
+--al cliente juan_daniel@gmail.com **sin utilizar JOIN**
 
 -- ids informes comprados
 CREATE TEMPORARY TABLE temp_ids (ID_INFORME INT);
