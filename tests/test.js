@@ -1,6 +1,6 @@
 const {
   transfers,
-  InformesService,
+  informesService,
   transferBuilder,
   FORMAT_VALIDATORS,
 } = require("../codigo");
@@ -32,12 +32,12 @@ describe("Test for valid input data fopr transfers", function () {
 describe("Test get transfers by email", function () {
   test("Test get transfers by email ('usuario1@autored.cl') (valid)", () => {
     expect(
-      InformesService.getTransferenciasUsuario("usuario1@autored.cl").length
+      informesService.getTransferenciasUsuario("usuario1@autored.cl").length
     ).toEqual(2);
   });
   test("Test get transfers by inexisting email ('test@gmail.com')", () => {
     expect(
-      InformesService.getTransferenciasUsuario("test@gmail.com").length
+      informesService.getTransferenciasUsuario("test@gmail.com").length
     ).toEqual(0);
   });
 });
@@ -45,7 +45,7 @@ describe("Test get transfers by email", function () {
 describe("Test adding transfer", function () {
   test("Test adding a transfer", () => {
     expect(
-      InformesService.addTransfer({
+      informesService.addTransfer({
         licensePlate: "AA0000",
         email: "test@gmail.com",
       })
@@ -58,7 +58,7 @@ describe("Test adding transfer", function () {
   });
   test("Test adding a invalid transfer (invalid license)", () => {
     expect(() =>
-      InformesService.addTransfer({
+      informesService.addTransfer({
         licensePlate: "AA00AA",
         email: "test@gmail.com",
       })
@@ -66,7 +66,7 @@ describe("Test adding transfer", function () {
   });
   test("Test adding a invalid transfer (invalid email)", () => {
     expect(() =>
-      InformesService.addTransfer({
+      informesService.addTransfer({
         licensePlate: "AA0000",
         email: "asdasdsad.com",
       })
@@ -80,7 +80,7 @@ describe("Test adding transfer", function () {
       status: "PAGADA",
     });
     expect(() =>
-      InformesService.addTransfer({
+      informesService.addTransfer({
         licensePlate: "AA0000",
         email: "test@gmail.com",
       })
@@ -88,7 +88,7 @@ describe("Test adding transfer", function () {
   });
   test("Testing adding an existing transfer, but with others in status 'ABORTADA' o FINALIZADA", () => {
     expect(
-      InformesService.addTransfer({
+      informesService.addTransfer({
         licensePlate: "LFTS35",
         email: "usuario1@autored.cl",
       })
@@ -101,7 +101,7 @@ describe("Test adding transfer", function () {
   });
   test("Testing adding an existing transfer", () => {
     expect(() =>
-      InformesService.addTransfer({
+      informesService.addTransfer({
         licensePlate: "LFTS34",
         email: "usuario1@autored.cl",
       })
@@ -111,7 +111,7 @@ describe("Test adding transfer", function () {
 describe("Test pay a transfer", function () {
   test("Test paying a transfer (valid)", () => {
     expect(
-      InformesService.payTransfer("usuario1@autored.cl", "LFTS34")
+      informesService.payTransfer("usuario1@autored.cl", "LFTS34")
     ).toEqual({
       id: 1,
       licensePlate: "LFTS34",
@@ -121,21 +121,22 @@ describe("Test pay a transfer", function () {
   });
   test("Test paying a transfer (invalid)", () => {
     expect(() =>
-      InformesService.payTransfer("usuario1@autored.cl", "LFTS3444")
+      informesService.payTransfer("usuario1@autored.cl", "LFTS3444")
     ).toThrow(Error);
   });
   test("Test aborting all transfers without payments", () => {
     expect(() =>
-      InformesService.getInformesRepository().abortOtherLicenseTransfers(
-        "BDLS99"
-      )
+      informesService
+        .getInformesRepository()
+        .abortOtherLicenseTransfers("BDLS99")
     ).toThrow(Error);
   });
   test("Test aborting all other after paying one license", () => {
-    const payed = InformesService.payTransfer("usuario1@autored.cl", "LFTS34");
+    const payed = informesService.payTransfer("usuario1@autored.cl", "LFTS34");
     // it should be one payed and all others aborted
-    const transfers =
-      InformesService.getInformesRepository().getTransfers("LFTS34");
+    const transfers = informesService
+      .getInformesRepository()
+      .getTransfers("LFTS34");
     const payedLicense = transfers?.filter((x) => x.status == "ABORTADA");
     const transfersToBeCompared = [payed, ...payedLicense];
     expect(transfers).toEqual(transfersToBeCompared);

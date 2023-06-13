@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1686623251499" clover="3.2.0">
-  <project timestamp="1686623251499" name="All files">
-    <metrics statements="88" coveredstatements="88" conditionals="28" coveredconditionals="28" methods="41" coveredmethods="41" elements="157" coveredelements="157" complexity="0" loc="88" ncloc="88" packages="1" files="1" classes="1"/>
+<coverage generated="1686623368426" clover="3.2.0">
+  <project timestamp="1686623368426" name="All files">
+    <metrics statements="89" coveredstatements="89" conditionals="28" coveredconditionals="28" methods="41" coveredmethods="41" elements="158" coveredelements="158" complexity="0" loc="89" ncloc="89" packages="1" files="1" classes="1"/>
     <file name="codigo.js" path="C:\Users\Martin\Projects\Test-FullStack\codigo.js">
-      <metrics statements="88" coveredstatements="88" conditionals="28" coveredconditionals="28" methods="41" coveredmethods="41"/>
+      <metrics statements="89" coveredstatements="89" conditionals="28" coveredconditionals="28" methods="41" coveredmethods="41"/>
       <line num="2" count="1" type="stmt"/>
       <line num="22" count="1" type="stmt"/>
-      <line num="60" count="2" type="stmt"/>
-      <line num="62" count="2" type="stmt"/>
+      <line num="60" count="1" type="stmt"/>
+      <line num="62" count="1" type="stmt"/>
       <line num="63" count="25" type="stmt"/>
       <line num="64" count="29" type="stmt"/>
       <line num="65" count="4" type="stmt"/>
-      <line num="67" count="2" type="stmt"/>
+      <line num="67" count="1" type="stmt"/>
       <line num="68" count="2" type="stmt"/>
       <line num="80" count="1" type="stmt"/>
       <line num="82" count="2" type="stmt"/>
@@ -91,7 +91,8 @@
       <line num="204" count="1" type="stmt"/>
       <line num="205" count="1" type="stmt"/>
       <line num="206" count="1" type="stmt"/>
-      <line num="208" count="1" type="stmt"/>
+      <line num="207" count="1" type="stmt"/>
+      <line num="209" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>

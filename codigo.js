@@ -201,15 +201,15 @@ class EstadosRepository {
     this.#statuses?.find((x) => x.name == "FINALIZADA");
 }
 
-const estadosRepo = new EstadosRepository();
-const transferBuilder = new TransferBuilder(estadosRepo);
-const informesRepo = new InformesRepository(estadosRepo, transferBuilder);
+const estadosRepository = new EstadosRepository();
+const transferBuilder = new TransferBuilder(estadosRepository);
+const informesRepo = new InformesRepository(estadosRepository, transferBuilder);
+const informesService = new InformesService(informesRepo);
 
 module.exports = {
   transfers,
-  InformesService: new InformesService(informesRepo),
-  Transfer: new TransferBuilder(),
-  transferBuilder: transferBuilder,
-  estadosRepository: estadosRepo,
+  informesService,
+  transferBuilder,
+  estadosRepository,
   FORMAT_VALIDATORS,
 };
