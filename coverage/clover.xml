@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1686865763451" clover="3.2.0">
-  <project timestamp="1686865763451" name="All files">
+<coverage generated="1686866211912" clover="3.2.0">
+  <project timestamp="1686866211912" name="All files">
     <metrics statements="89" coveredstatements="89" conditionals="28" coveredconditionals="28" methods="41" coveredmethods="41" elements="158" coveredelements="158" complexity="0" loc="89" ncloc="89" packages="1" files="1" classes="1"/>
     <file name="codigo.js" path="C:\Users\Martin\Projects\Test-FullStack\codigo.js">
       <metrics statements="89" coveredstatements="89" conditionals="28" coveredconditionals="28" methods="41" coveredmethods="41"/>
@@ -83,9 +83,9 @@
       <line num="191" count="2" type="stmt"/>
       <line num="192" count="2" type="stmt"/>
       <line num="196" count="1" type="stmt"/>
-      <line num="197" count="2" type="stmt"/>
-      <line num="198" count="30" type="stmt"/>
-      <line num="199" count="12" type="stmt"/>
+      <line num="197" count="3" type="stmt"/>
+      <line num="198" count="34" type="stmt"/>
+      <line num="199" count="18" type="stmt"/>
       <line num="200" count="1" type="stmt"/>
       <line num="201" count="8" type="stmt"/>
       <line num="204" count="1" type="stmt"/>

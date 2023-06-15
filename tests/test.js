@@ -3,11 +3,11 @@ const {
   informesService,
   transferBuilder,
   FORMAT_VALIDATORS,
+  estadosRepository,
 } = require("../codigo");
 
 describe("Test for valid input data fopr transfers", function () {
   test("generates new id", () => {
-    // starting
     expect(transferBuilder.getNewId()).toBe(6);
   });
   test("test valid email input: 'test@gmail.com'", () => {
@@ -77,7 +77,7 @@ describe("Test adding transfer", function () {
       id: 6,
       licensePlate: "AA0000",
       email: "test@gmail.com",
-      status: "PAGADA",
+      status: estadosRepository.getEstadoPagada().name,
     });
     expect(() =>
       informesService.addTransfer({
@@ -96,7 +96,7 @@ describe("Test adding transfer", function () {
       id: transferBuilder.getNewId() - 1,
       licensePlate: "LFTS35",
       email: "usuario1@autored.cl",
-      status: "CREADA",
+      status: estadosRepository.getEstadoCreada().name,
     });
   });
   test("Testing adding an existing transfer", () => {
@@ -116,7 +116,7 @@ describe("Test pay a transfer", function () {
       id: 1,
       licensePlate: "LFTS34",
       email: "usuario1@autored.cl",
-      status: "PAGADA",
+      status: estadosRepository.getEstadoPagada().name,
     });
   });
   test("Test paying a transfer (invalid)", () => {
@@ -137,7 +137,9 @@ describe("Test pay a transfer", function () {
     const transfers = informesService
       .getInformesRepository()
       .getTransfers("LFTS34");
-    const payedLicense = transfers?.filter((x) => x.status == "ABORTADA");
+    const payedLicense = transfers?.filter(
+      (x) => x.status == estadosRepository.getEstadoAbortada().name
+    );
     const transfersToBeCompared = [payed, ...payedLicense];
     expect(transfers).toEqual(transfersToBeCompared);
   });
